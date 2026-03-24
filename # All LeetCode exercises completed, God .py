@@ -64,16 +64,34 @@ print(find_the_difference("abbcd", "acdbbe"))
 """
 
 def strStr(haystack: str, needle: str): 
-    stringy = ""
-    for i in range(len(haystack)): 
-        stringy += haystack[i] 
-        if stringy == needle: 
-            return len(stringy) - (i + 1)
-    return -1 
+    front = 0
+    back = len(needle)
+
+    curr = haystack[front:back]
+    
+    while curr != needle and front < len(haystack): 
+        front += 1 
+        back += 1 
+        curr = haystack[front:back]
+    
+    if front == len(haystack): 
+        return -1 
+    
+    else: 
+        return front        
 
 print(strStr("sadbutsad", "sad"))
 print(strStr("leetcode", "leeto"))
 print(strStr("foodiebyfoot", "by"))
+
+
+def isAnagram(s: str, t:str): 
+    for char in s: 
+        if char not in t: 
+            return False 
+    return True 
+
+print(isAnagram("anagram", "nagaram"))
 
 
 
