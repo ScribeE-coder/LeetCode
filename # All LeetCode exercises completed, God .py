@@ -80,19 +80,33 @@ def strStr(haystack: str, needle: str):
     else: 
         return front        
 
-print(strStr("sadbutsad", "sad"))
-print(strStr("leetcode", "leeto"))
-print(strStr("foodiebyfoot", "by"))
-
 
 def isAnagram(s: str, t:str): 
-    for char in s: 
-        if char not in t: 
-            return False 
-    return True 
+   s_map = {}
+   t_map = {} 
 
-print(isAnagram("anagram", "nagaram"))
+   if len(s) != len(t): 
+       return False
+   
+   for char in s: 
+       s_map[char] = s_map.get(char, 0) + 1 
+    
+   for char in t:
+       t_map[char] = t_map.get(char, 0) + 1 
+   
+   if s_map.keys() != t_map.keys(): 
+       return False 
+   
+   else: 
+       for char in s_map.keys(): 
+          if s_map[char] != t_map[char]: 
+              return False     
+   
+   return True 
 
+
+def repeatedSubstringPattern(s: str): 
+    return None 
 
 
 
