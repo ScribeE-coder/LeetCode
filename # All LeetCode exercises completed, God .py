@@ -106,7 +106,172 @@ def isAnagram(s: str, t:str):
 
 
 def repeatedSubstringPattern(s: str): 
-    return None 
+   # length of substring is at most half of length of parent string, remainder has to be 0 
+   valid_lengths = []
 
+   for i in range(1, len(s)): 
+       if i <= len(s) // 2 and len(s) % i == 0: # all valid lengths will be half the length of s with no remainder 
+           valid_lengths.append(i) 
+
+   for length in valid_lengths: # length = [1, 2]
+       substring = s[:length] # all substrings must begin at the start of s 
+       repeat = len(s) // len(substring) # you only need to repeat a certain number of times to determine if the substring is a valid one
+       substring *= repeat 
+       if substring == s: 
+           return True 
+   return False 
+ 
+"""Filtering through lengths by finding only the valid ones 
+Figuring out how many times you need to repeat
+Filtering through valid lengths to find the correct word """
+
+def moveZeros(nums): 
+    pointer = 0
+    for i in range(len(nums)): 
+        if nums[i] != 0: 
+            nums[pointer] = nums[i]
+            pointer += 1 
+    
+    for x in range(pointer, len(nums)): 
+        nums[x] = 0 
+    
+    return nums
+
+""" Trying to iterate through the list and change items as you go doesn't work 
+instead have one pointer that iterates through the list, 
+and one pointer that changes the item it's supposed to; 
+it doesn't move until there's something change; once you've pushed everything forward, 
+all you have to do is go back and set the rest of the list to 0 """
+
+
+def plusOne(digits): 
+    num = "" 
+    for digit in digits: 
+        new_digit = str(digit)
+        num += new_digit 
+
+    num = int(num)
+    num += 1 
+    num = str(num)
+    listy = []
+    for char in num: 
+        char = int(char)
+        listy.append(char)
+    
+    digits = listy 
+
+    return digits 
+
+
+
+def arraySign(nums):
+    total = 1
+    for num in nums: 
+        total *= num 
+    
+    def signFunc(x): 
+        if total > 0: 
+            return 1 
+        elif total == 0: 
+            return 0 
+        else: 
+            return -1 
+    
+    return signFunc(total)
+
+
+
+# there's a bunch of sorting algorithms you could probably do for this 
+def canMakeArithmeticProgression(arr): 
+    arr.sort()
+    diff = abs(arr[0] - arr[1])
+    for i in range(len(arr) - 1): 
+        if abs(arr[i] - arr[i + 1]) != diff: 
+            return False 
+    return True 
+
+""" checking consecutive groups means you can just iterate through groups in the list 
+and compare to an initial value or whatever you don't have to take chunks and compare within one iteration
+it doesn't work you run into out of range index errors """
+
+
+""" An array is monotonic if it is either monotone increasing or monotone decreasing.
+An array nums is monotone increasing if for all i <= j, nums[i] <= nums[j]. 
+An array nums is monotone decreasing if for all i <= j, nums[i] >= nums[j].
+Given an integer array nums, return true if the given array is monotonic, or false otherwise."""
+
+def ascending(nums): 
+    for i in range(len(nums) - 1): 
+        if nums[i] > nums[i + 1]: 
+            return False 
+    return True
+
+def descending(nums): 
+    for i in range(len(nums) - 1): 
+        if nums[i] < nums[i + 1]: 
+            return False 
+    return True 
+
+def isMonotonic(nums: list): 
+   if not ascending(nums) and not descending(nums): 
+       return False 
+   return True  
+   
+def toRomanInt(s): 
+    romanRef = {"I": 1, "V": 5, "X": 10, "L": 50, "C": 100, "D": 500, "M": 1000}
+    
+    total = 0
+
+    reversed_s = s[::-1]
+
+    prev = 0 
+    for i in range(len(reversed_s)): 
+        if romanRef[reversed_s[i]] < prev: 
+            total -= romanRef[reversed_s[i]]
+        else: 
+            total += romanRef[reversed_s[i]]
+
+        prev = romanRef[reversed_s[i]]
+    return total 
+
+""" To solve this problem the main thing is the iteration. Reversing the list and running through it backwards ensures that you'll see the larger
+value first; from there all you have to do is subtract the smaller value from the total since you already added the larger value to total during other parts
+of the iteration; if this case isn't needed then just add the value to the total like normal; the prev value is to keep track of who you saw before in order to make the comparison
+needed for the first conditional statement; prev is not needed if you decide to iterate normally and compare the current element with the element in front of it"""
+
+
+def lengthofLastWord(s): 
+    new_s = s.split()
+    return len(new_s[-1])
+""" split function gets rid of spaces and puts each individual word in a list"""
+
+
+def toLowerCase(s): 
+    return s.lower()
+
+
+def calPoints(operations): 
+    score = []
+    for op in operations: 
+        if op == "+": 
+            score1 = score[-1]
+            score2 = score[-2]
+            score.append(score1 + score2)
+        elif op == "D": 
+            score1 = score[-1] * 2 
+            score.append(score1)
+        elif op == "C": 
+            score.pop(-1)
+        else: 
+            op = int(op)
+            score.append(op)
+
+    return sum(score)
+""" The score changing is dependent on identifying what the most recent score was; using a stack data structure is the natural approach for this problem because 
+stacks identify who the first item and most previous item added was by default; this makes it incredibly easy to change the score depending on the operation"""
+
+
+def judgeCircle(moves): 
+    return False 
 
 
